@@ -12,7 +12,6 @@ public class Account {
     private NameRuleAble nameRule;
     private CurrRuleAble currRule;
 
-    //private Account(){}
     public Account(NameRuleAble namerule, CurrRuleAble currrule) {
         this.nameRule = namerule;
         this.currRule = currrule;
