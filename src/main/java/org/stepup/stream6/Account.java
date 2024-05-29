@@ -1,7 +1,6 @@
 package org.stepup.stream6;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class Account {
