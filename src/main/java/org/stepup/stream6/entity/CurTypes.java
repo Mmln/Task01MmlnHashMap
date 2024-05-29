@@ -1,4 +1,4 @@
-package org.stepup.stream6;
+package org.stepup.stream6.entity;
 
 public enum CurTypes {
     RUB /* Российский рубль */,

@@ -1,4 +1,7 @@
-package org.stepup.stream6;
+package org.stepup.stream6.entity;
+
+import org.stepup.stream6.interfaces.CurrRuleAble;
+import org.stepup.stream6.interfaces.NameRuleAble;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -6,10 +9,13 @@ import java.util.HashMap;
 public class Account {
     private String name;
     private HashMap<CurTypes, BigDecimal> currency;
+    private NameRuleAble nameRule;
+    private CurrRuleAble currRule;
 
-    private Account(){}
-    public Account(String name) {
-        this.setName(name);
+    //private Account(){}
+    public Account(NameRuleAble namerule, CurrRuleAble currrule) {
+        this.nameRule = namerule;
+        this.currRule = currrule;
         this.currency = new HashMap<>();
     }
 
@@ -18,7 +24,7 @@ public class Account {
     }
 
     public void setName(String name) {
-        if (name == null || name.isEmpty()) throw new IllegalArgumentException("The Account.name must not be empty");
+        if (nameRule.check(name)) throw new IllegalArgumentException("The Account.name must not be empty");
         this.name = name;
     }
 
@@ -27,7 +33,8 @@ public class Account {
     }
 
     public void putCurrency(CurTypes curtype, BigDecimal val) {
-        if (val.signum() != 1) throw new IllegalArgumentException("The currency value must be greater then zero");
+        //if (val.signum() != 1) throw new IllegalArgumentException("The currency value must be greater then zero");
+        if (currRule.check(val)) throw new IllegalArgumentException("The currency value must be greater then zero");
         this.currency.put(curtype, val);
     }
 
