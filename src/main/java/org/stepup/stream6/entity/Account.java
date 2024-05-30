@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Account {
     private String name;
-    private HashMap<CurTypes, BigDecimal> currency;
+    private HashMap<CurTypes, BigDecimal> currency; // валюта не может быть целым числом - не надо...
     private NameRuleAble nameRule;
     private CurrRuleAble currRule;
 
@@ -32,7 +32,6 @@ public class Account {
     }
 
     public void putCurrency(CurTypes curtype, BigDecimal val) {
-        //if (val.signum() != 1) throw new IllegalArgumentException("The currency value must be greater then zero");
         if (currRule.check(val)) throw new IllegalArgumentException("The currency value must be greater then zero");
         this.currency.put(curtype, val);
     }

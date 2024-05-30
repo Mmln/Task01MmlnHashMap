@@ -9,21 +9,38 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println("MmlnTask01 started...");
+        System.out.println("Task01Mmln started...\n");
 
-        //Account acc1 = new Account(); // not compiled
-        Account acc = new Account(x -> x == null || x.isEmpty(), y -> y.signum() != 1);
-        acc.setName("XXXX");
+        //Account acc1 = new Account(); // this line not compiled
+        Account acc = new Account(
+                (x) -> x == null || x.isEmpty(),
+                (y) -> y.signum() != 1);
+        acc.setName("Ivan Petrov");
 
-        //acc.putCurrency(CurTypes.RUB, BigDecimal.valueOf(-100)); // throw the error
-        //System.out.println(acc);
         acc.putCurrency(CurTypes.RUB, BigDecimal.valueOf(100));
-        System.out.println(acc);
+        System.out.println("Setting currency value to 100: " + acc);
         acc.putCurrency(CurTypes.RUB, BigDecimal.valueOf(200));
-        System.out.println(acc);
+        System.out.println("Changing currency value to 200: " + acc);
         acc.putCurrency(CurTypes.USD, BigDecimal.valueOf(50));
-        System.out.println(acc);
+        System.out.println("Adding new currency: " + acc);
 
-        System.out.println("MmlnTask01 finished...");
+        //this lines throw error
+        System.out.println("\nChecking restrictions...");
+        try {
+            Account accErr = new Account(
+                    (x) -> x == null || x.isEmpty(),
+                    (y) -> y.signum() != 1);
+            accErr.setName("");
+        } catch(IllegalArgumentException e) {
+            System.out.println("Error: " + e.toString());
+        }
+        try {
+            acc.putCurrency(CurTypes.RUB, BigDecimal.valueOf(-100));
+        } catch(IllegalArgumentException e) {
+            System.out.print(acc);
+            System.out.println(" Error: " + e.toString() + "\n");
+        }
+
+        System.out.println("Task01Mmln finished...");
     }
 }
