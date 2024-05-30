@@ -33,13 +33,13 @@ public class App
                     (y) -> y.signum() != 1);
             accErr.setName("");
         } catch(IllegalArgumentException e) {
-            System.out.println("Error: " + e.toString());
+            System.out.println("Error: " + e);
         }
         try {
             acc.putCurrency(CurTypes.RUB, BigDecimal.valueOf(-100));
         } catch(IllegalArgumentException e) {
             System.out.print(acc);
-            System.out.println(" Error: " + e.toString() + "\n");
+            System.out.println(" Error: " + e + "\n");
         }
 
         //Part2 for undo operation start
@@ -63,7 +63,7 @@ public class App
         try{
             acc2.undo();
         } catch(NothingToUndo e) {
-            System.out.println("undo processed with error: " + e.toString() + " " + acc2);
+            System.out.println("undo processed with error: " + e + " " + acc2);
         }
         System.out.println("Some sequentially Undo processed...\n");
         //Part2 for undo operation finish
