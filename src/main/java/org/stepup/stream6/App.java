@@ -1,7 +1,7 @@
 package org.stepup.stream6;
 
-import org.stepup.stream6.entity.Account;
-import org.stepup.stream6.entity.CurTypes;
+import org.stepup.stream6.entities.Account;
+import org.stepup.stream6.entities.CurTypes;
 import org.stepup.stream6.exceptions.NothingToUndo;
 import org.stepup.stream6.interfaces.MementoAble;
 

@@ -1,4 +1,4 @@
-package org.stepup.stream6.entity;
+package org.stepup.stream6.entities;
 
 import org.stepup.stream6.exceptions.NothingToUndo;
 import org.stepup.stream6.interfaces.CommandAble;
