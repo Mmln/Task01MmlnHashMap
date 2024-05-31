@@ -12,6 +12,7 @@ public class App
     {
         System.out.println("Task01Mmln started...\n");
 
+        System.out.println("Demonstrating Part1 implementation started...");
         //Account acc1 = new Account(); // this line not compiled
         Account acc = new Account(
                 (x) -> x == null || x.isEmpty(),
@@ -41,9 +42,10 @@ public class App
             System.out.print(acc);
             System.out.println(" Error: " + e + "\n");
         }
+        System.out.println("Demonstrating Part1 implementation finished...\n");
 
+        System.out.println("Demonstrating Part2 implementation started...");
         //Part2 for undo operation start
-        System.out.println("Make some sequentially Undo...");
         Account acc2 = new Account(
                 (x) -> x == null || x.isEmpty(),
                 (y) -> y.signum() != 1);
@@ -51,13 +53,13 @@ public class App
         acc2.setName("Vasiliy Ivanov");
         acc2.putCurrency(CurTypes.RUB, BigDecimal.valueOf(300));
         acc2.setType("PremiumAccount");
-        System.out.println("Ready for undo: " + acc2);
+        System.out.println("Ready for undo: " + acc2 + "\n");
 
         while(acc2.canUndo()){
             acc2.undo();
             System.out.println("undo processed: " +  acc2);
         }
-        System.out.println("undo finished: " +  acc2);
+        System.out.println("undo finished: " +  acc2 + "\n");
 
         System.out.println("Checking error for illegal undo");
         try{
@@ -65,8 +67,8 @@ public class App
         } catch(NothingToUndo e) {
             System.out.println("undo processed with error: " + e + " " + acc2);
         }
-        System.out.println("Some sequentially Undo processed...\n");
         //Part2 for undo operation finish
+        System.out.println("Demonstrating Part2 implementation finished...\n");
 
         System.out.println("Task01Mmln finished...");
     }
