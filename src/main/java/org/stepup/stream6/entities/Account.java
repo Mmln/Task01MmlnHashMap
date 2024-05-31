@@ -10,7 +10,7 @@ import java.util.*;
 
 public class Account {
     private String name;
-    private Map<CurTypes, Integer> currencies; // валюта не может быть целым числом - не надо...
+    private Map<CurTypes, Integer> currencies;
     private NameRuleAble nameRule;
     private CurrRuleAble currRule;
     private Deque<CommandAble> commands = new ArrayDeque<>();
