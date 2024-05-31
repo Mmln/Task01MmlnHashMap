@@ -5,8 +5,6 @@ import org.stepup.stream6.entity.CurTypes;
 import org.stepup.stream6.exceptions.NothingToUndo;
 import org.stepup.stream6.interfaces.MementoAble;
 
-import java.math.BigDecimal;
-
 public class App
 {
     public static void main( String[] args )
@@ -79,14 +77,19 @@ public class App
         acc3.setType("SimpleAccount");
         System.out.println("Account created for save/load demonstration: \n" + acc3);
 
-        System.out.println("saving account current state");
+        System.out.println("saving account first state");
         MementoAble qs1 = acc3.save();
-        System.out.println("updating account current state");
+        System.out.println("updating account first state");
         acc3.putCurrency(CurTypes.USD, 50);
         acc3.setType("PremiumAccount");
         System.out.println(acc3);
-        System.out.println("loading account previouse state");
+        System.out.println("saving account second state");
+        MementoAble qs2 = acc3.save();
+        System.out.println("loading account first state");
         qs1.load();
+        System.out.println(acc3);
+        System.out.println("loading account second state");
+        qs2.load();
         System.out.println(acc3);
         System.out.println("Demonstrating Part3 implementation finished...\n");
 
