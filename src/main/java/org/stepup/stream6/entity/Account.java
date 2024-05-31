@@ -3,6 +3,7 @@ package org.stepup.stream6.entity;
 import org.stepup.stream6.exceptions.NothingToUndo;
 import org.stepup.stream6.interfaces.CommandAble;
 import org.stepup.stream6.interfaces.CurrRuleAble;
+import org.stepup.stream6.interfaces.MementoAble;
 import org.stepup.stream6.interfaces.NameRuleAble;
 
 import java.math.BigDecimal;
@@ -20,13 +21,39 @@ public class Account {
     //adding new field: type
     private String type;
 
+    //Part3 save/load implementation start
+    public MementoAble save() {return new Snapshot();}
+    // this class placed here to simplify using Account class
+    private class Snapshot implements MementoAble
+    {
+        private String name;
+        private HashMap<CurTypes, BigDecimal> currencies;
+
+        //adding new field: type
+        private String type;
+
+        public Snapshot ()
+        {
+            this.name = Account.this.name;
+            this.currencies = new HashMap<>(Account.this.currencies);
+            this.type = Account.this.type;
+        }
+        @Override
+        public void load() {
+            Account.this.name = this.name;
+            Account.this.currencies = new HashMap<>(this.currencies);
+            Account.this.type = this.type;
+        }
+    }
+    //Part3 save/load implementation finish
+
     public Account(NameRuleAble namerule, CurrRuleAble currrule) {
         this.nameRule = namerule;
         this.currRule = currrule;
         this.currencies = new HashMap<>();
     }
 
-    //Part2 undo operation start
+    //Part2 undo implementation start
     public Account undo() throws NothingToUndo {
         if (commands.isEmpty()) throw new NothingToUndo();
         commands.pop().execute();
@@ -37,7 +64,7 @@ public class Account {
         if (commands.isEmpty()) return false;
         return true;
     }
-    //Part2 undo operation finish
+    //Part2 undo implementation finish
 
     public String getName() {
         return name;
@@ -46,10 +73,10 @@ public class Account {
     public void setName(String name) {
         if (nameRule.check(name)) throw new IllegalArgumentException("The Account.name must not be empty");
 
-        //Part2 for undo operation start
+        //Part2 undo implementation start
         String oldName = this.name;
         this.commands.push(()->{this.name = oldName;});
-        //Part2 for undo operation finish
+        //Part2 undo implementation finish
 
         this.name = name;
     }
@@ -61,14 +88,14 @@ public class Account {
     public void putCurrency(CurTypes curtype, BigDecimal val) {
         if (currRule.check(val)) throw new IllegalArgumentException("The currency value must be greater then zero");
 
-        //Part2 for undo operation start
+        //Part2 undo implementation start
         if (currencies.containsKey(curtype)){
             BigDecimal oldVal = this.currencies.get(curtype);
             this.commands.push(()->{this.currencies.put(curtype,oldVal);});
         } else {
             this.commands.push(()->{this.currencies.remove(curtype);});
         }
-        //Part2 for undo operation finish
+        //Part2 undo implementation finish
 
         this.currencies.put(curtype, val);
     }
@@ -80,10 +107,10 @@ public class Account {
 
     //adding new field: type
     public void setType(String type) {
-        //Part2 for undo operation start
+        //Part2 undo implementation start
         String oldType = this.type;
         this.commands.push(()->{this.type = oldType;});
-        //Part2 for undo operation finish
+        //Part2 undo implementation finish
 
         this.type = type;
     }

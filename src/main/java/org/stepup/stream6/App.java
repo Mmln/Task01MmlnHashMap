@@ -3,6 +3,7 @@ package org.stepup.stream6;
 import org.stepup.stream6.entity.Account;
 import org.stepup.stream6.entity.CurTypes;
 import org.stepup.stream6.exceptions.NothingToUndo;
+import org.stepup.stream6.interfaces.MementoAble;
 
 import java.math.BigDecimal;
 
@@ -45,7 +46,6 @@ public class App
         System.out.println("Demonstrating Part1 implementation finished...\n");
 
         System.out.println("Demonstrating Part2 implementation started...");
-        //Part2 for undo operation start
         Account acc2 = new Account(
                 (x) -> x == null || x.isEmpty(),
                 (y) -> y.signum() != 1);
@@ -67,8 +67,28 @@ public class App
         } catch(NothingToUndo e) {
             System.out.println("undo processed with error: " + e + " " + acc2);
         }
-        //Part2 for undo operation finish
         System.out.println("Demonstrating Part2 implementation finished...\n");
+
+        System.out.println("Demonstrating Part3 implementation started...");
+        Account acc3 = new Account(
+                (x) -> x == null || x.isEmpty(),
+                (y) -> y.signum() != 1);
+        acc3.putCurrency(CurTypes.RUB, BigDecimal.valueOf(100));
+        acc3.setName("Vasiliy Ivanov");
+        acc3.putCurrency(CurTypes.RUB, BigDecimal.valueOf(300));
+        acc3.setType("SimpleAccount");
+        System.out.println("Account created for save/load demonstration: \n" + acc3);
+
+        System.out.println("saving account current state");
+        MementoAble qs1 = acc3.save();
+        System.out.println("updating account current state");
+        acc3.putCurrency(CurTypes.USD, BigDecimal.valueOf(50));
+        acc3.setType("PremiumAccount");
+        System.out.println(acc3);
+        System.out.println("loading account previouse state");
+        qs1.load();
+        System.out.println(acc3);
+        System.out.println("Demonstrating Part3 implementation finished...\n");
 
         System.out.println("Task01Mmln finished...");
     }
