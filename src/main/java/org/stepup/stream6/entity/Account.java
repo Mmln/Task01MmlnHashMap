@@ -6,14 +6,11 @@ import org.stepup.stream6.interfaces.CurrRuleAble;
 import org.stepup.stream6.interfaces.MementoAble;
 import org.stepup.stream6.interfaces.NameRuleAble;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
 public class Account {
     private String name;
-    private HashMap<CurTypes, BigDecimal> currencies; // валюта не может быть целым числом - не надо...
+    private Map<CurTypes, Integer> currencies; // валюта не может быть целым числом - не надо...
     private NameRuleAble nameRule;
     private CurrRuleAble currRule;
     private Deque<CommandAble> commands = new ArrayDeque<>();
@@ -27,7 +24,7 @@ public class Account {
     private class Snapshot implements MementoAble
     {
         private String name;
-        private HashMap<CurTypes, BigDecimal> currencies;
+        private Map<CurTypes, Integer> currencies;
 
         //adding new field: type
         private String type;
@@ -35,13 +32,13 @@ public class Account {
         public Snapshot ()
         {
             this.name = Account.this.name;
-            this.currencies = new HashMap<>(Account.this.currencies);
+            this.currencies = new TreeMap<>(Account.this.currencies);
             this.type = Account.this.type;
         }
         @Override
         public void load() {
             Account.this.name = this.name;
-            Account.this.currencies = new HashMap<>(this.currencies);
+            Account.this.currencies = new TreeMap<>(this.currencies);
             Account.this.type = this.type;
         }
     }
@@ -50,7 +47,7 @@ public class Account {
     public Account(NameRuleAble namerule, CurrRuleAble currrule) {
         this.nameRule = namerule;
         this.currRule = currrule;
-        this.currencies = new HashMap<>();
+        this.currencies = new TreeMap<>();
     }
 
     //Part2 undo implementation start
@@ -81,16 +78,16 @@ public class Account {
         this.name = name;
     }
 
-    public HashMap<CurTypes, BigDecimal> getCurrency() {
-        return new HashMap<CurTypes, BigDecimal>(this.currencies);
+    public TreeMap<CurTypes, Integer> getCurrencies() {
+        return new TreeMap<CurTypes, Integer>(this.currencies);
     }
 
-    public void putCurrency(CurTypes curtype, BigDecimal val) {
+    public void putCurrency(CurTypes curtype, Integer val) {
         if (currRule.check(val)) throw new IllegalArgumentException("The currency value must be greater then zero");
 
         //Part2 undo implementation start
         if (currencies.containsKey(curtype)){
-            BigDecimal oldVal = this.currencies.get(curtype);
+            Integer oldVal = this.currencies.get(curtype);
             this.commands.push(()->{this.currencies.put(curtype,oldVal);});
         } else {
             this.commands.push(()->{this.currencies.remove(curtype);});
