@@ -5,12 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.stepup.stream6.entities.Account;
 import org.stepup.stream6.entities.CurTypes;
 import org.stepup.stream6.exceptions.NothingToUndo;
+import org.stepup.stream6.interfaces.CurrRuleAble;
 import org.stepup.stream6.interfaces.MementoAble;
-
-import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
-import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
+import org.stepup.stream6.interfaces.NameRuleAble;
 
 public class AccountTest {
+    NameRuleAble nameRule = (x) -> x == null || x.isEmpty();
+    CurrRuleAble currRule = (y) -> (y < 0);
     @Test
     void testSave() {
         Account acc = new Account(nameRule,  currRule);

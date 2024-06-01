@@ -4,11 +4,13 @@ import junit.framework.Assert;
 import org.junit.jupiter.api.Test;
 import org.stepup.stream6.entities.Account;
 import org.stepup.stream6.entities.CurTypes;
+import org.stepup.stream6.interfaces.CurrRuleAble;
+import org.stepup.stream6.interfaces.NameRuleAble;
 
-import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
-import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
 
 public class CommanAbleTest {
+    NameRuleAble nameRule = (x) -> x == null || x.isEmpty();
+    CurrRuleAble currRule = (y) -> (y < 0);
     @Test
     void testExecute() {
         Account acc = new Account(nameRule,  currRule);

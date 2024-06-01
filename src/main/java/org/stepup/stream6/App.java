@@ -7,13 +7,13 @@ import org.stepup.stream6.interfaces.CurrRuleAble;
 import org.stepup.stream6.interfaces.MementoAble;
 import org.stepup.stream6.interfaces.NameRuleAble;
 
-import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
-import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
-
 public class App
 {
     public static void main( String[] args )
     {
+        NameRuleAble nameRule = (x) -> x == null || x.isEmpty();
+        CurrRuleAble currRule = (y) -> (y < 0);
+
         System.out.println("Task01Mmln started...\n");
 
         System.out.println("Demonstrating Part1 implementation started...");
