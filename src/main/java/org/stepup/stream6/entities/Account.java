@@ -111,5 +111,9 @@ public class Account {
 
         this.type = type;
     }
+
+    public String getType() {
+        return type;
+    }
 }
 

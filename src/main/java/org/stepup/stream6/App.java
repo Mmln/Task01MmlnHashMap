@@ -3,7 +3,12 @@ package org.stepup.stream6;
 import org.stepup.stream6.entities.Account;
 import org.stepup.stream6.entities.CurTypes;
 import org.stepup.stream6.exceptions.NothingToUndo;
+import org.stepup.stream6.interfaces.CurrRuleAble;
 import org.stepup.stream6.interfaces.MementoAble;
+import org.stepup.stream6.interfaces.NameRuleAble;
+
+import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
+import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
 
 public class App
 {
@@ -13,9 +18,7 @@ public class App
 
         System.out.println("Demonstrating Part1 implementation started...");
         //Account acc1 = new Account(); // this line not compiled
-        Account acc = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+        Account acc = new Account(nameRule,  currRule);
         acc.setName("Ivan Petrov");
 
         acc.putCurrency(CurTypes.RUB, 100);
@@ -28,9 +31,7 @@ public class App
         //this lines throw error
         System.out.println("\nChecking restrictions...");
         try {
-            Account accErr = new Account(
-                    (x) -> x == null || x.isEmpty(),
-                    (y) -> y < 0);
+            Account accErr = new Account(nameRule,  currRule);
             accErr.setName("");
         } catch(IllegalArgumentException e) {
             System.out.println("Error: " + e);
@@ -44,9 +45,7 @@ public class App
         System.out.println("Demonstrating Part1 implementation finished...\n");
 
         System.out.println("Demonstrating Part2 implementation started...");
-        Account acc2 = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+        Account acc2 = new Account(nameRule,  currRule);
         acc2.putCurrency(CurTypes.RUB, 100);
         acc2.setName("Vasiliy Ivanov");
         acc2.putCurrency(CurTypes.RUB, 300);
@@ -68,9 +67,7 @@ public class App
         System.out.println("Demonstrating Part2 implementation finished...\n");
 
         System.out.println("Demonstrating Part3 implementation started...");
-        Account acc3 = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+        Account acc3 = new Account(nameRule,  currRule);
         acc3.putCurrency(CurTypes.RUB, 100);
         acc3.setName("Vasiliy Ivanov");
         acc3.putCurrency(CurTypes.RUB, 300);

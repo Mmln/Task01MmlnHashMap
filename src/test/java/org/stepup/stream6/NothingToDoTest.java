@@ -5,13 +5,13 @@ import org.stepup.stream6.entities.Account;
 import org.stepup.stream6.entities.CurTypes;
 import org.stepup.stream6.exceptions.NothingToUndo;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
+import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
 
 public class NothingToDoTest {
     @Test
     void generateNothingToUndo(){
-        Account acc2 = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+        Account acc2 = new Account(nameRule,  currRule);
         acc2.putCurrency(CurTypes.RUB, 100);
         acc2.setName("Vasiliy Ivanov");
         acc2.putCurrency(CurTypes.RUB, 300);

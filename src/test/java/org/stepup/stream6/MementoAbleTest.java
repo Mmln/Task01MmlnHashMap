@@ -6,14 +6,13 @@ import org.stepup.stream6.entities.Account;
 import org.stepup.stream6.entities.CurTypes;
 import org.stepup.stream6.interfaces.MementoAble;
 
-import java.math.BigDecimal;
+import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
+import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
 
 public class MementoAbleTest {
     @Test
     void load() {
-        Account acc = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+        Account acc = new Account(nameRule,  currRule);
         acc.setName("initName");
         acc.putCurrency(CurTypes.RUB, 100);
         acc.setType("SuperAccount");
@@ -28,9 +27,7 @@ public class MementoAbleTest {
 
     @Test
     void repeatedLoad() {
-        Account acc = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+        Account acc = new Account(nameRule,  currRule);
         acc.setName("initName");
         acc.putCurrency(CurTypes.RUB, 100);
         acc.setType("SuperAccount");

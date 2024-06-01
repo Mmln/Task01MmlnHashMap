@@ -5,14 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.stepup.stream6.entities.Account;
 import org.stepup.stream6.entities.CurTypes;
 
-import java.math.BigDecimal;
+import static org.stepup.stream6.interfaces.CurrRuleAble.currRule;
+import static org.stepup.stream6.interfaces.NameRuleAble.nameRule;
 
 public class CommanAbleTest {
     @Test
-    void execute() {
-        Account acc = new Account(
-                (x) -> x == null || x.isEmpty(),
-                (y) -> y < 0);
+    void testExecute() {
+        Account acc = new Account(nameRule,  currRule);
         acc.setName("initName");
         acc.putCurrency(CurTypes.RUB, 100);
         acc.setType("SuperAccount");
