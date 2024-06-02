@@ -11,9 +11,9 @@ import java.util.*;
 public class Account {
     private String name;
     private Map<CurTypes, Integer> currencies;
-    private NameRuleAble nameRule;
-    private CurrRuleAble currRule;
-    private Deque<CommandAble> commands = new ArrayDeque<>();
+    private final NameRuleAble nameRule;
+    private final CurrRuleAble currRule;
+    private final Deque<CommandAble> commands = new ArrayDeque<>();
 
     //adding new field: type
     private String type;
@@ -23,11 +23,11 @@ public class Account {
     // this class placed here to simplify using Account class
     private class Snapshot implements MementoAble
     {
-        private String name;
-        private Map<CurTypes, Integer> currencies;
+        private final String name;
+        private final Map<CurTypes, Integer> currencies;
 
         //adding new field: type
-        private String type;
+        private final String type;
 
         public Snapshot ()
         {
@@ -51,15 +51,13 @@ public class Account {
     }
 
     //Part2 undo implementation start
-    public Account undo() throws NothingToUndo {
+    public void undo() throws NothingToUndo {
         if (commands.isEmpty()) throw new NothingToUndo();
         commands.pop().execute();
-        return this;
     }
 
     public boolean canUndo(){
-        if (commands.isEmpty()) return false;
-        return true;
+        return !commands.isEmpty();
     }
     //Part2 undo implementation finish
 
