@@ -11,9 +11,9 @@ import java.util.*;
 public class Account {
     private String name;
     private Map<CurTypes, Integer> currencies;
-    private final NameRuleAble nameRule;
-    private final CurrRuleAble currRule;
-    private final Deque<CommandAble> commands = new ArrayDeque<>();
+    private NameRuleAble nameRule;
+    private CurrRuleAble currRule;
+    private Deque<CommandAble> commands = new ArrayDeque<>();
 
     //adding new field: type
     private String type;
@@ -23,11 +23,11 @@ public class Account {
     // this class placed here to simplify using Account class
     private class Snapshot implements MementoAble
     {
-        private final String name;
-        private final Map<CurTypes, Integer> currencies;
+        private String name;
+        private Map<CurTypes, Integer> currencies;
 
         //adding new field: type
-        private final String type;
+        private String type;
 
         public Snapshot ()
         {
