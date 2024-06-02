@@ -11,9 +11,9 @@ import java.util.*;
 public class Account {
     private String name;
     private Map<CurTypes, Integer> currencies;
-    private NameRuleAble nameRule;
-    private CurrRuleAble currRule;
-    private Deque<CommandAble> commands = new ArrayDeque<>();
+    private final NameRuleAble nameRule;
+    private final CurrRuleAble currRule;
+    private final Deque<CommandAble> commands = new ArrayDeque<>();
 
     //adding new field: type
     private String type;
@@ -23,11 +23,11 @@ public class Account {
     // this class placed here to simplify using Account class
     private class Snapshot implements MementoAble
     {
-        private String name;
-        private Map<CurTypes, Integer> currencies;
+        private final String name;
+        private final Map<CurTypes, Integer> currencies;
 
         //adding new field: type
-        private String type;
+        private final String type;
 
         public Snapshot ()
         {
@@ -70,14 +70,14 @@ public class Account {
 
         //Part2 undo implementation start
         String oldName = this.name;
-        this.commands.push(()->{this.name = oldName;});
+        this.commands.push(()-> this.name = oldName);
         //Part2 undo implementation finish
 
         this.name = name;
     }
 
     public TreeMap<CurTypes, Integer> getCurrencies() {
-        return new TreeMap<CurTypes, Integer>(this.currencies);
+        return new TreeMap<>(this.currencies);
     }
 
     public void putCurrency(CurTypes curtype, Integer val) {
@@ -86,9 +86,9 @@ public class Account {
         //Part2 undo implementation start
         if (currencies.containsKey(curtype)){
             Integer oldVal = this.currencies.get(curtype);
-            this.commands.push(()->{this.currencies.put(curtype,oldVal);});
+            this.commands.push(()->this.currencies.put(curtype,oldVal));
         } else {
-            this.commands.push(()->{this.currencies.remove(curtype);});
+            this.commands.push(()->this.currencies.remove(curtype));
         }
         //Part2 undo implementation finish
 
@@ -104,7 +104,7 @@ public class Account {
     public void setType(String type) {
         //Part2 undo implementation start
         String oldType = this.type;
-        this.commands.push(()->{this.type = oldType;});
+        this.commands.push(()->this.type = oldType);
         //Part2 undo implementation finish
 
         this.type = type;
