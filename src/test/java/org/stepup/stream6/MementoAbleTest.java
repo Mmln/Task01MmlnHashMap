@@ -10,7 +10,7 @@ import org.stepup.stream6.interfaces.NameRuleAble;
 
 public class MementoAbleTest {
     NameRuleAble nameRule = (x) -> x == null || x.isEmpty();
-    CurrRuleAble currRule = (y) -> (y < 0);
+    CurrRuleAble currRule = (y) -> (y < 0) || y == null;
 
     @Test
     void load() {

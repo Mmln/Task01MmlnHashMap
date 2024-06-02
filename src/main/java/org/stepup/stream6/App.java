@@ -12,7 +12,7 @@ public class App
     public static void main( String[] args )
     {
         NameRuleAble nameRule = (x) -> x == null || x.isEmpty();
-        CurrRuleAble currRule = (y) -> (y < 0);
+        CurrRuleAble currRule = (y) -> (y < 0) || y == null;
 
         System.out.println("Task01Mmln started...\n");
 

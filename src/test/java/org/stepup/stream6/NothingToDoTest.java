@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class NothingToDoTest {
     NameRuleAble nameRule = (x) -> x == null || x.isEmpty();
-    CurrRuleAble currRule = (y) -> (y < 0);
+    CurrRuleAble currRule = (y) -> (y < 0) || y == null;
+
     @Test
     void generateNothingToUndo(){
         Account acc2 = new Account(nameRule,  currRule);
