@@ -1,6 +1,6 @@
 ### Описание 
 
-#### Внимание!!! Проект нормально загружается из GitHub в IntelliJ IDEA 2023.2 (Community Edition)
+#### _Внимание!!! Проект нормально загружается из GitHub в IntelliJ IDEA(Community Edition)_
 
 1. Part 1.
    1. Создан класс Account;
