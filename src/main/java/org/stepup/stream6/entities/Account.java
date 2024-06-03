@@ -23,18 +23,12 @@ public class Account {
     // this class placed here to simplify using Account class
     private class Snapshot implements MementoAble
     {
-        private final String name;
-        private final Map<CurTypes, Integer> currencies;
+        private final String name = Account.this.name;
+        private final Map<CurTypes, Integer> currencies = new TreeMap<>(Account.this.currencies);
 
         //adding new field: type
-        private final String type;
+        private final String type = Account.this.type;
 
-        public Snapshot ()
-        {
-            this.name = Account.this.name;
-            this.currencies = new TreeMap<>(Account.this.currencies);
-            this.type = Account.this.type;
-        }
         @Override
         public void load() {
             Account.this.name = this.name;
