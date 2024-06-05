@@ -24,7 +24,7 @@ public class Account {
     private class Snapshot implements MementoAble
     {
         private final String name = Account.this.name;
-        private final Map<CurTypes, Integer> currencies = new TreeMap<>(Account.this.currencies);
+        private final Map<CurTypes, Integer> currencies = new HashMap<>(Account.this.currencies);
 
         //adding new field: type
         private final String type = Account.this.type;
@@ -32,7 +32,7 @@ public class Account {
         @Override
         public void load() {
             Account.this.name = this.name;
-            Account.this.currencies = new TreeMap<>(this.currencies);
+            Account.this.currencies = new HashMap<>(this.currencies);
             Account.this.type = this.type;
         }
     }
@@ -41,7 +41,7 @@ public class Account {
     public Account(NameRuleAble namerule, CurrRuleAble currrule) {
         this.nameRule = namerule;
         this.currRule = currrule;
-        this.currencies = new TreeMap<>();
+        this.currencies = new HashMap<>();
     }
 
     //Part2 undo implementation start
@@ -70,8 +70,8 @@ public class Account {
         this.name = name;
     }
 
-    public TreeMap<CurTypes, Integer> getCurrencies() {
-        return new TreeMap<>(this.currencies);
+    public HashMap<CurTypes, Integer> getCurrencies() {
+        return new HashMap<>(this.currencies);
     }
 
     public void putCurrency(CurTypes curtype, Integer val) {
